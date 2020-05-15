@@ -5,6 +5,7 @@ local SIZE = 10
 local MIN_SPEED = 100
 local MAX_SPEED = 400
 local SPEED_STEP = 10
+local ANGLE_LIMIT = 45
 
 
 function Ball:new(ui)
@@ -44,7 +45,9 @@ end
 
 function Ball:start()
 	self:reset()
-	self.angle = math.random() * math.pi * 2
+	self.angle =
+		self.currentRacket.angle +
+		math.rad(math.random(-ANGLE_LIMIT, ANGLE_LIMIT))
 	self.direction = {x = math.cos(self.angle), y = math.sin(self.angle)}
 	self.active = true
 end
@@ -100,7 +103,10 @@ function Ball:ping()
 	self.score = self.score + 1
 	RADIUS = 100 + self.speedPerc
 
-	self.angle = self:angleFromCenter() + math.pi + math.rad(math.random(-45, 45))
+	self.angle =
+		self:angleFromCenter() + math.pi +
+		math.rad(math.random(-ANGLE_LIMIT, ANGLE_LIMIT))
+
 	if self.speedPerc == 100 then
 		self.angle = self:angleFromCenter() - math.pi
 	end
