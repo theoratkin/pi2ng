@@ -1,9 +1,9 @@
 # PI2NG
 
 Supercharge the crystal and see what happens! Be careful, it's very unstable!
-You have to contain it, othervise it will get destroyed.
+You have to contain it, otherwise it will get destroyed.
 
-This is a simple radial pong where you control both sides simultaniously.
+This is a simple radial pong where you control both racket simultaniously.
 
 
 ## Controls
@@ -18,3 +18,7 @@ counterclockwise.
 \<Escape\> or \<Q\> - exit the game at any time. Keep in mind that your
 progress won't be saved!
 
+
+## Credits
+
+See [`CREDITS.md`](./CREDITS.md).
