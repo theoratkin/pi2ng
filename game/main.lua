@@ -95,5 +95,6 @@ function love.resize(x, y)
 	racket1:resize(x, y)
 	racket2:resize(x, y)
 	ui:resize(x, y)
+	finalanim:resize(x, y)
 	genstars()
 end

@@ -20,6 +20,30 @@ function FinalAnim:new()
 	for i = 1, CIRCLES_COUNT do
 		self.circles[i] = 1
 	end
+
+	self.particles = love.graphics.newParticleSystem(
+		love.graphics.newImage("res/pixel_3x3.png"), 200
+	)
+	self.particles:setParticleLifetime(1, 5)
+	self.particles:setEmissionRate(30)
+	self.particles:setEmissionArea(
+		"ellipse", SUNSIZE, SUNSIZE, math.pi * 2
+	)
+	self.particles:setSizeVariation(1)
+	self.particles:setLinearAcceleration(-100, -100, 100, 100)
+	self.particles:setPosition(center.x, center.y)
+	self.particles:setColors(
+		self.sunColor[1],
+		self.sunColor[2],
+		self.sunColor[3],
+		1,
+		self.sunColor[1],
+		self.sunColor[2],
+		self.sunColor[3],
+		0
+	)
+	self.particles:stop()
+	
 	self.explosionSound = love.audio.newSource("res/explosion.ogg", "static")
 end
 
@@ -27,6 +51,7 @@ end
 function FinalAnim:play()
 	self.active = true
 	self.explosionSound:play()
+	self.particles:start()
 end
 
 
@@ -50,6 +75,8 @@ function FinalAnim:update(dt)
 		self.sunlinear = self.sunlinear + SUNSPEED * dt
 		self.sunease = SUNSIZE * easeOutCubic(self.sunlinear / SUNSIZE)
 	end
+
+	self.particles:update(dt)
 end
 
 
@@ -73,6 +100,14 @@ function FinalAnim:draw()
 		center.x, center.y,
 		self.sunease
 	)
+
+	love.graphics.draw(self.particles)
+end
+
+
+function FinalAnim:resize(x, y)
+	self.particles:setPosition(x / 2, y / 2)
+	self.particles:reset()
 end
 
 
