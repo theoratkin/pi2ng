@@ -135,9 +135,10 @@ function Ball:update(dt)
 		return
 	end
 
+	local tolerance = 10
 	if  self.speedPerc == 100 and
-		math.abs(self.position.x - self.center.x) < 3 and
-		math.abs(self.position.y - self.center.y) < 3
+		math.abs(self.position.x - self.center.x) < tolerance and
+		math.abs(self.position.y - self.center.y) < tolerance 
 	then
 		self.position.x = self.center.x
 		self.position.y = self.center.y
