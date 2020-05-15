@@ -7,16 +7,17 @@ local author = "by Theogen Ratkin"
 local press2Play = "Rotate by 180 degrees to begin playing"
 
 local madeWithLove = "Made with LÖVE"
-local font = "Font Poiret One by Denis Masharov"
+local font = "Font Major Mono Display by Emre Parlak"
 local musicAuthor = 'Music "sad Waltz" by frankum'
 local sounds = "Sound effects by caiogracco, unfa and V-ktor"
 
 
 function UI:new()
 	self:resize(love.graphics.getDimensions())
-	self.fontSmall = love.graphics.newFont("res/PoiretOne-Regular.ttf", 16)
-	self.font = love.graphics.newFont("res/PoiretOne-Regular.ttf", 24)
-	self.fontLarge = love.graphics.newFont("res/PoiretOne-Regular.ttf", 48)
+	self.fontPath = "res/MajorMonoDisplay-Regular.ttf"
+	self.fontSmall = love.graphics.newFont(self.fontPath, 14, "light")
+	self.font = love.graphics.newFont(self.fontPath, 20, "light")
+	self.fontLarge = love.graphics.newFont(self.fontPath, 48, "light")
 	love.graphics.setFont(self.font)
 	self.state = "title"
 	self.speedPerc = 0
@@ -60,7 +61,7 @@ function UI:radialEntry(angle, length, width, text)
 		angle + math.rad(length / 2)
 	)
 
-	love.graphics.setColor({1, 1, 1, 0.6})
+	distance = distance + 10
 	local left = 10
 	if angle > math.pi / 2 and angle < math.pi * 1.5 then
 		left = -(love.graphics.getFont():getWidth(text) + left)
@@ -68,6 +69,7 @@ function UI:radialEntry(angle, length, width, text)
 	local up = -self.font:getHeight() / 2
 	if angle > math.pi then
 	end
+	love.graphics.setColor({1, 1, 1, 0.6})
 	self:_print(
 		text,
 		center.x + math.cos(angle) * distance + left,
@@ -107,7 +109,7 @@ function UI:draw()
 	end
 
 	if self.state == "title" then
-		local offset = 50
+		local offset = 60
 		self:_print(
 			press2Play,
 			self:_alignCenter(press2Play, 1),
@@ -117,7 +119,7 @@ function UI:draw()
 	end
 
 	if self.state == "credits" then
-		local offset = 80
+		local offset = 90
 		self:_print(
 			madeWithLove,
 			self:_alignCenter(madeWithLove, 1),
@@ -197,7 +199,7 @@ end
 
 
 function UI:_print(text, x, y, scale)
-	love.graphics.print(text, x, y, 0, scale, scale)
+	love.graphics.print(text, x, y)
 end
 
 
