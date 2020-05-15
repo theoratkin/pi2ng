@@ -124,7 +124,7 @@ function Ball:ping()
 	end
 	local sound = math.random(3)
 	self.currentRacket.sounds[sound]:seek(0)
-	self.currentRacket.sounds[sound]:setPitch(0.5 + 0.2 * self.speedPerc / 100)
+	self.currentRacket.sounds[sound]:setPitch(0.5 + 0.5 * self.speedPerc / 100)
 	self.currentRacket.sounds[sound]:play()
 	self.currentRacket = self.currentRacket.opposite
 end
