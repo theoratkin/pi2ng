@@ -5,6 +5,7 @@
 [font]: https://fonts.google.com/specimen/Poiret+One
 [music]: https://freesound.org/people/frankum/sounds/394286
 [crystal]: https://freesound.org/people/caiogracco
+[break]: https://freesound.org/people/unfa/sounds/221528
 
 This game has originally been developed by Theogen Ratkin for the
 [Content Creators Community Jam 2020][jam].
@@ -16,3 +17,5 @@ Font: [Poiret One by Denis Masharov][font]
 Music: ["sad Waltz" by frankum][music]
 
 Crystal sounds by [caiogracco][crystal]
+
+Crystal break sound: [Glass Break by unfa][break]
