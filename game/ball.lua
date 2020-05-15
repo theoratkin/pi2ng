@@ -16,6 +16,18 @@ function Ball:new(ui)
 	self.currentRacket = racket1
 	self.active = false
 
+	self.particles = love.graphics.newParticleSystem(
+		love.graphics.newImage("res/pixel_3x3.png"), 30
+	)
+	self.particles:setParticleLifetime(1, 1)
+	self.particles:setEmissionRate(10000)
+	self.particles:setEmitterLifetime(1)
+	self.particles:setEmissionArea(
+		"uniform", 3, 3, math.pi * 2
+	)
+	self.particles:setSizeVariation(1)
+	self.particles:stop()
+
 	self.breakSound = love.audio.newSource("res/break.ogg", "static")
 end
 
@@ -142,12 +154,37 @@ function Ball:update(dt)
 		self:ping()
 	end
 	if self:gameover() then
-		self:start()
 		self.breakSound:play()
+		self.particles:stop()
+		self.particles:setPosition(self.position.x, self.position.y)
+		self.particles:setColors(
+			self.currentRacket.color[1],
+			self.currentRacket.color[2],
+			self.currentRacket.color[3],
+			1,
+			self.currentRacket.color[1],
+			self.currentRacket.color[2],
+			self.currentRacket.color[3],
+			0
+		)
+		self.particles:setSpeed(
+			self.direction.x * self.speed,
+			self.direction.y * self.speed
+		)
+		self.particles:setLinearAcceleration(
+			self.direction.x * self.speed,
+			self.direction.y * self.speed,
+			self.direction.x * self.speed * 2,
+			self.direction.y * self.speed * 2
+		)
+		self.particles:start()
+		self:start()
 	end
 
 	self.ui.score = self.score
 	self.ui.speedPerc = self.speedPerc
+
+	self.particles:update(dt)
 end
 
 
@@ -175,6 +212,9 @@ function Ball:draw()
 	love.graphics.circle("line", self.center.x, self.center.y, RADIUS)
 	love.graphics.setColor(1, 1, 1, 1)
 	--]]
+	
+	love.graphics.setColor(1, 1, 1, 1)
+	love.graphics.draw(self.particles, 0, 0)
 end
 
 
