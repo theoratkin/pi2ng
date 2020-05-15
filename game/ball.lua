@@ -15,6 +15,8 @@ function Ball:new(ui)
 	self:reset()
 	self.currentRacket = racket1
 	self.active = false
+
+	self.breakSound = love.audio.newSource("res/break.ogg", "static")
 end
 
 
@@ -141,6 +143,7 @@ function Ball:update(dt)
 	end
 	if self:gameover() then
 		self:start()
+		self.breakSound:play()
 	end
 
 	self.ui.score = self.score
