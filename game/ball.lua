@@ -122,11 +122,16 @@ function Ball:ping()
 	self.currentRacket.flash = 1
 	self.currentRacket.flashColor = {0, 0, 0}
 	if self.speedPerc >= 60 then
+		--[[
 		self.currentRacket.flashColor = {
 			.5 * math.random(),
 			.5 * math.random(),
 			.5 * math.random(),
 		}
+		--]]
+		color = math.random(2, #COLORS)
+		self.currentRacket.flashColor = COLORS[color]
+		print(color)
 	end
 	local sound = math.random(3)
 	self.currentRacket.sounds[sound]:seek(0)

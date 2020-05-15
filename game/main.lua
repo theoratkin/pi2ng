@@ -6,6 +6,41 @@ FinalAnim = require "finalanim"
 
 RADIUS = 100 
 
+COLORS = {
+	"#000000",
+	"#1D2B53",
+	"#7E2553",
+	"#008751",
+	"#AB5236",
+	"#5F574F",
+	"#C2C3C7",
+	"#FFF1E8",
+	"#FF004D",
+	"#FFA300",
+	"#FFEC27",
+	"#00E436",
+	"#29ADFF",
+	"#83769C",
+	"#FF77A8",
+	"#FFCCAA",
+}
+RACKET1_COLOR = 14
+RACKET2_COLOR = 3
+SUN_COLOR = 5
+SUN_LINE_COLOR = 7
+TEXT_COLOR = 7
+UI_SEGMENTS_COLOR = 2
+STARS_COLOR = 7
+
+for i in pairs(COLORS) do
+    hex = COLORS[i]:gsub("#","")
+	COLORS[i] = {
+		tonumber("0x"..hex:sub(1,2))/255,
+		tonumber("0x"..hex:sub(3,4))/255,
+		tonumber("0x"..hex:sub(5,6))/255
+	}
+end
+
 function love.load()
 	input = Input()
 	ui = UI()
@@ -35,6 +70,8 @@ function love.load()
 	genstars()
 
 	finalanim = FinalAnim()
+
+	love.graphics.setBackgroundColor(COLORS[1])
 end
 
 
@@ -79,7 +116,7 @@ end
 
 
 function love.draw()
-	love.graphics.setColor(1, 1, 1, 1)
+	love.graphics.setColor(COLORS[STARS_COLOR])
 	love.graphics.points(stars)
 	ui:draw()
 	ball:draw()

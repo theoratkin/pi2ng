@@ -15,10 +15,10 @@ function Racket:new(opposite)
 
 	if not opposite then
 		self.angle = 0
-		self.color = {0.3, 0.7, 0.1, 1}
+		self.color = COLORS[RACKET1_COLOR]
 	else
 		self.angle = math.pi
-		self.color = {0.7, 0.1, 0.3, 1}
+		self.color = COLORS[RACKET2_COLOR]
 	end
 
 	self.sounds = {
@@ -78,7 +78,7 @@ function Racket:draw()
 		self.angle + math.rad(self.length / 2),
 		20
 	)
-	if self.flashColor[1] ~= 0 then
+	if self.flashColor[1] + self.flashColor[2] + self.flashColor[3] ~= 0 then
 		love.graphics.setColor(
 			self.flashColor[1],
 			self.flashColor[2],

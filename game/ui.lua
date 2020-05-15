@@ -10,6 +10,7 @@ local madeWithLove = "Made with LÖVE"
 local font = "Font Major Mono Display by Emre Parlak"
 local musicAuthor = 'Music "sad Waltz" by frankum'
 local sounds = "Sound effects by caiogracco, unfa and V-ktor"
+local palette = "PICO-8 palette"
 
 
 function UI:new()
@@ -22,6 +23,9 @@ function UI:new()
 	self.state = "title"
 	self.speedPerc = 0
 	self.restartAngle = math.pi
+
+	self.foregroundColor = COLORS[TEXT_COLOR]
+	self.backgroundColor = COLORS[UI_SEGMENTS_COLOR]
 end
 
 
@@ -50,7 +54,7 @@ end
 
 
 function UI:radialEntry(angle, length, width, text)
-	love.graphics.setColor({.2, .2, .2, 1})
+	love.graphics.setColor(self.backgroundColor)
 	love.graphics.setLineWidth(width)
 	local distance = RADIUS + 5 + width / 2
 	love.graphics.arc(
@@ -69,7 +73,7 @@ function UI:radialEntry(angle, length, width, text)
 	local up = -self.font:getHeight() / 2
 	if angle > math.pi then
 	end
-	love.graphics.setColor({1, 1, 1, 0.6})
+	love.graphics.setColor(self.foregroundColor)
 	self:_print(
 		text,
 		center.x + math.cos(angle) * distance + left,
@@ -80,8 +84,7 @@ end
 
 
 function UI:draw()
-	love.graphics.setColor({1, 1, 1, 0.6})
-
+	love.graphics.setColor(self.foregroundColor)
 	if self.state == "title" or self.state == "credits" then
 		love.graphics.setFont(self.fontLarge)
 		self:_print(
@@ -144,11 +147,16 @@ function UI:draw()
 			self._center.y + offset + self.font:getHeight() * 4,
 			1
 		)
+		self:_print(
+			palette,
+			self:_alignCenter(palette, 1),
+			self._center.y + offset + self.font:getHeight() * 5,
+			1
+		)
 	end
 
 	if self.state == "game" then
 		-- Speed
-		love.graphics.setColor({1, 1, 1, 0.6})
 		self:_print(
 			self.speedPerc.."%",
 			self:_alignCenter(self.speedPerc, 1, 20),
@@ -170,7 +178,6 @@ function UI:draw()
 			5
 		)
 
-		love.graphics.setColor(1, 1, 1, 0.2)
 		love.graphics.setLineWidth(1)
 		love.graphics.line(
 			self._center.x - 10000, self._center.y,

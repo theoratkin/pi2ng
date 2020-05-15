@@ -12,7 +12,7 @@ local DUMMY_CIRCLES = 4
 
 function FinalAnim:new()
 	self.active = false
-	self.sunColor = {.8, .7, 0}
+	self.sunColor = COLORS[SUN_COLOR]
 
 	self.explosionSound = love.audio.newSource("res/explosion.ogg", "static")
 	self.particles = love.graphics.newParticleSystem(
@@ -89,7 +89,7 @@ function FinalAnim:draw()
 		return
 	end
 
-	love.graphics.setColor(1, 1, 1, 1)
+	love.graphics.setColor(COLORS[SUN_LINE_COLOR])
 	love.graphics.setLineWidth(3)
 	for i, circle in pairs(self.circles) do
 		love.graphics.circle(
@@ -98,7 +98,7 @@ function FinalAnim:draw()
 			circle
 		)
 	end
-	love.graphics.setColor(.8, .7, 0, 1)
+	love.graphics.setColor(self.sunColor)
 	love.graphics.circle(
 		"fill",
 		center.x, center.y,
