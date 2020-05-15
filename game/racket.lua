@@ -1,15 +1,15 @@
 Object = require "classic"
 local Racket = Object:extend()
 
-local WIDTH  = 5
-local LENGTH = 20
+
 local SPEED = 3
 
 
 function Racket:new(opposite)
 	self:resize(love.graphics.getDimensions())
-	self.width = WIDTH
-	self.length = LENGTH
+	self.width = 5
+	self.startLength = 20
+	self.length = self.startLength
 	self.flash = 0
 	self.flashColor = {1, 1, 1}
 
@@ -59,8 +59,7 @@ function Racket:update(dt)
 		self.flash = 0
 	end
 
-	--self.width  = WIDTH + 10 * ball.speedPerc / 100
-	self.length = LENGTH + 40 * ball.speedPerc / 100
+	self.length = self.startLength + 40 * ball.speedPerc / 100
 end
 
 

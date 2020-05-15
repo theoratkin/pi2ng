@@ -11,6 +11,8 @@ function love.load()
 	ui = UI()
 	racket1 = Racket()
 	racket2 = Racket(true)
+	racket2.width = 3
+	racket2.startLength = 30
 	racket1.opposite = racket2
 	racket2.opposite = racket1
 	ball = Ball(ui)
