@@ -90,7 +90,7 @@ function FinalAnim:draw()
 	end
 
 	love.graphics.setColor(1, 1, 1, 1)
-	love.graphics.setLineWidth(1)
+	love.graphics.setLineWidth(3)
 	for i, circle in pairs(self.circles) do
 		love.graphics.circle(
 			"line",
