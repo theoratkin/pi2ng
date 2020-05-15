@@ -151,6 +151,8 @@ function Ball:update(dt)
 		self.active = false
 		if not finalanim.active then
 			finalanim:play()
+			ui.restartAngle = racket2.angle
+			ui.state = "win"
 		end
 	else
 		self.position.x = self.position.x + self.direction.x * self.speed * dt

@@ -14,6 +14,15 @@ function FinalAnim:new()
 	self.active = false
 	self.sunColor = {.8, .7, 0}
 
+	self.explosionSound = love.audio.newSource("res/explosion.ogg", "static")
+	self.particles = love.graphics.newParticleSystem(
+		love.graphics.newImage("res/pixel_3x3.png"), 200
+	)
+end
+
+
+function FinalAnim:reset()
+	self.active = false
 	self.sunlinear = SUNSTART
 	self.sunease = 0
 	self.circles = {}
@@ -21,9 +30,6 @@ function FinalAnim:new()
 		self.circles[i] = 1
 	end
 
-	self.particles = love.graphics.newParticleSystem(
-		love.graphics.newImage("res/pixel_3x3.png"), 200
-	)
 	self.particles:setParticleLifetime(1, 5)
 	self.particles:setEmissionRate(30)
 	self.particles:setEmissionArea(
@@ -43,8 +49,6 @@ function FinalAnim:new()
 		0
 	)
 	self.particles:stop()
-	
-	self.explosionSound = love.audio.newSource("res/explosion.ogg", "static")
 end
 
 
