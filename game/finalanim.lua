@@ -17,11 +17,13 @@ function FinalAnim:new()
 	for i = 1, CIRCLES_COUNT do
 		self.circles[i] = 1
 	end
+	self.explosionSound = love.audio.newSource("res/explosion.ogg", "static")
 end
 
 
 function FinalAnim:play()
 	self.active = true
+	self.explosionSound:play()
 end
 
 

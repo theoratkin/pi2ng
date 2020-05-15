@@ -6,6 +6,7 @@
 [music]: https://freesound.org/people/frankum/sounds/394286
 [crystal]: https://freesound.org/people/caiogracco
 [break]: https://freesound.org/people/unfa/sounds/221528
+[explosion]: https://freesound.org/people/V-ktor/sounds/482993
 
 This game has originally been developed by Theogen Ratkin for the
 [Content Creators Community Jam 2020][jam].
@@ -19,3 +20,5 @@ Music: ["sad Waltz" by frankum][music]
 Crystal sounds by [caiogracco][crystal]
 
 Crystal break sound: [Glass Break by unfa][break]
+
+Explosion sound: [large explosion 1 by V-ktor][explosion]
