@@ -4,7 +4,7 @@ local Ball = Object:extend()
 local SIZE = 10
 local MIN_SPEED = 100
 local MAX_SPEED = 400
-local SPEED_STEP = 10
+local SPEED_STEP = 2
 local ANGLE_LIMIT = 45
 
 
@@ -122,16 +122,8 @@ function Ball:ping()
 	self.currentRacket.flash = 1
 	self.currentRacket.flashColor = {0, 0, 0}
 	if self.speedPerc >= 60 then
-		--[[
-		self.currentRacket.flashColor = {
-			.5 * math.random(),
-			.5 * math.random(),
-			.5 * math.random(),
-		}
-		--]]
 		color = math.random(2, #COLORS)
 		self.currentRacket.flashColor = COLORS[color]
-		print(color)
 	end
 	local sound = math.random(3)
 	self.currentRacket.sounds[sound]:seek(0)
