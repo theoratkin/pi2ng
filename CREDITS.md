@@ -2,7 +2,7 @@
 
 [jam]: https://itch.io/jam/ccc-jam
 [love]: https://love2d.org
-[font]: https://fonts.google.com/specimen/Poiret+One
+[font]: https://fonts.google.com/specimen/Major+Mono+Display
 [music]: https://freesound.org/people/frankum/sounds/394286
 [crystal]: https://freesound.org/people/caiogracco
 [break]: https://freesound.org/people/unfa/sounds/221528
@@ -13,7 +13,7 @@ This game has originally been developed by Theogen Ratkin for the
 
 Engine: [LÖVE framework][love]
 
-Font: [Poiret One by Denis Masharov][font]
+Font: [Major Mono Display by Emre Parlak][font]
 
 Music: ["sad Waltz" by frankum][music]
 
