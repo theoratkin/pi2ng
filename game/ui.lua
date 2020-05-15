@@ -2,35 +2,85 @@ Object = require "classic"
 local UI = Object:extend()
 
 
-title = "PI2NG"
-author = "by Theogen Ratkin"
-press2Play = "Move to begin playing"
+local title = "PI2NG"
+local author = "by Theogen Ratkin"
+local press2Play = "Rotate by 180 degrees to begin playing"
+
+local madeWithLove = "Made with LÖVE"
+local font = "Font Poiret One by Denis Masharov"
+local musicAuthor = 'Music "sad Waltz" by frankum'
+local sounds = "Sound effects by caiogracco, unfa and V-ktor"
 
 
 function UI:new()
 	self:resize(love.graphics.getDimensions())
-	self.font = love.graphics.newFont("res/PoiretOne-Regular.ttf", 16)
-	self.fontLarge = love.graphics.newFont("res/PoiretOne-Regular.ttf", 64)
+	self.fontSmall = love.graphics.newFont("res/PoiretOne-Regular.ttf", 16)
+	self.font = love.graphics.newFont("res/PoiretOne-Regular.ttf", 24)
+	self.fontLarge = love.graphics.newFont("res/PoiretOne-Regular.ttf", 48)
 	love.graphics.setFont(self.font)
 	self.state = "title"
 	self.speedPerc = 0
+	self.restartAngle = math.pi
 end
 
 
 function UI:update(dt)
-	if  self.state == "title"
-		and (input:down("left") or input:down("right"))
+	local tol = 20
+	if  (self.state == "credits" or self.state == "win") and
+		math.abs(racket1.angle - self.restartAngle) < math.rad(tol)
 	then
 		self.state = "game"
+		finalanim:reset()
 		ball:start()
 	end
+
+	if  racket1.angle < math.rad(tol) or
+		racket1.angle > math.pi * 2 - math.rad(tol)
+	then
+		if self.state == "credits" then
+			self.state = "title"
+		end
+	else
+		if self.state == "title" then
+			self.state = "credits"
+		end
+	end
+end
+
+
+function UI:radialEntry(angle, length, width, text)
+	love.graphics.setColor({.2, .2, .2, 1})
+	love.graphics.setLineWidth(width)
+	local distance = RADIUS + 5 + width / 2
+	love.graphics.arc(
+		"line", "open",
+		center.x, center.y,
+		distance,
+		angle - math.rad(length / 2),
+		angle + math.rad(length / 2)
+	)
+
+	love.graphics.setColor({1, 1, 1, 0.6})
+	local left = 10
+	if angle > math.pi / 2 and angle < math.pi * 1.5 then
+		left = -(love.graphics.getFont():getWidth(text) + left)
+	end
+	local up = -self.font:getHeight() / 2
+	if angle > math.pi then
+	end
+	self:_print(
+		text,
+		center.x + math.cos(angle) * distance + left,
+		center.y + math.sin(angle) * distance + up,
+		1
+	)
 end
 
 
 function UI:draw()
 	love.graphics.setColor({1, 1, 1, 0.6})
 
-	if self.state == "title" then
+	if self.state == "title" or self.state == "credits" then
 		love.graphics.setFont(self.fontLarge)
 		self:_print(
 			title,
@@ -38,29 +88,63 @@ function UI:draw()
 			self._center.y - self.fontLarge:getHeight() / 2,
 			1
 		)
-		love.graphics.setFont(self.font)
+		love.graphics.setFont(self.fontSmall)
 		self:_print(
 			author,
 			self:_alignCenter(author, 1),
-			self._center.y + 40,
+			self._center.y + self.fontLarge:getHeight() / 2,
 			1
 		)
+		love.graphics.setFont(self.font)
+
+		self:radialEntry(0, 20, 5, "Title")
+		self:radialEntry(math.rad(340), 20, 2, "Credits")
+		self:radialEntry(math.pi, 20, 2, "Play")
+	end
+
+	if self.state == "win" then
+		self:radialEntry(self.restartAngle, racket2.length, 2, "Restart")
+	end
+
+	if self.state == "title" then
+		local offset = 50
 		self:_print(
 			press2Play,
 			self:_alignCenter(press2Play, 1),
-			self._center.y + 60,
+			self._center.y + offset + self.font:getHeight() * 2,
 			1
 		)
-	else
-		--[[ Score
-		self:_print(
-			self.score,
-			self:_alignLeft(self.score, 1, 20),
-			self._center.y - self.font:getHeight() / 2,
-			1
-		)
-		--]]
+	end
 
+	if self.state == "credits" then
+		local offset = 80
+		self:_print(
+			madeWithLove,
+			self:_alignCenter(madeWithLove, 1),
+			self._center.y + offset + self.font:getHeight() * 1,
+			1
+		)
+		self:_print(
+			font,
+			self:_alignCenter(font, 1),
+			self._center.y + offset + self.font:getHeight() * 2,
+			1
+		)
+		self:_print(
+			musicAuthor,
+			self:_alignCenter(musicAuthor, 1),
+			self._center.y + offset + self.font:getHeight() * 3,
+			1
+		)
+		self:_print(
+			sounds,
+			self:_alignCenter(sounds, 1),
+			self._center.y + offset + self.font:getHeight() * 4,
+			1
+		)
+	end
+
+	if self.state == "game" then
 		-- Speed
 		love.graphics.setColor({1, 1, 1, 0.6})
 		self:_print(
