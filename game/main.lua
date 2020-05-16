@@ -107,6 +107,8 @@ end
 
 
 function love.update(dt)
+	input:update(dt)
+
 	if input:down("back") then
 		if ui.state == "title" or ui.state == "credits" then
 			love.event.quit()
@@ -123,7 +125,6 @@ function love.update(dt)
 		end
 	end
 
-	input:update(dt)
 	ball:update(dt)
 	racket1:update(dt)
 	racket2:update(dt)
