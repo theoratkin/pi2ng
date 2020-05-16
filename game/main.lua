@@ -97,9 +97,6 @@ function love.keypressed(key, scancode, isrepeat)
 			music:play()
 		end
 	end
-	if scancode == "f" then
-		flashing = not flashing
-	end
 	if scancode == "f1" then
 		ui.debug = not ui.debug
 	end
@@ -109,6 +106,9 @@ end
 function love.update(dt)
 	input:update(dt)
 
+	if input:down("flashing") then
+		flashing = not flashing
+	end
 	if input:down("back") then
 		if ui.state == "title" or ui.state == "credits" then
 			love.event.quit()
