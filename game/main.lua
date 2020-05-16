@@ -91,7 +91,19 @@ end
 
 function love.keypressed(key, scancode, isrepeat)
 	if scancode == "escape" or scancode == "q" then
-		love.event.quit()
+		if ui.state == "title" or ui.state == "credits" then
+			love.event.quit()
+		else
+			ui.restartAngle = math.pi
+			ui.state = "title"
+			ball.active = false
+			ball:reset()
+			racket1.flash = 0
+			racket2.flash = 0
+			racket1.angle = 0
+			racket2.angle = math.pi
+			finalanim:reset()
+		end
 	end
 	if scancode == "m" then
 		if music:isPlaying() then
