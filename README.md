@@ -5,7 +5,7 @@
 Supercharge the crystal and see what happens! Be careful, it's very unstable!
 You have to contain it, otherwise it will get destroyed.
 
-This is a simple radial pong where you control both racket simultaniously.
+This is a simple radial pong where you control both rackets simultaniously.
 
 
 ## Controls
