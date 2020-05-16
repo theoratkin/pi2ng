@@ -4,7 +4,7 @@ local UI = Object:extend()
 
 local title = "PI2NG"
 local author = "by Theogen Ratkin"
-local press2Play = "Rotate by 180 degrees to begin playing"
+local press2Play = "Rotate 180 degrees to begin playing"
 
 local madeWithLove = "Made with LÖVE"
 local font = "Font Major Mono Display by Emre Parlak"
