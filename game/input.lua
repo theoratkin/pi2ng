@@ -41,6 +41,11 @@ DEFAULT_MAPPINGS = {
 		{ "button", 7 },
 		{ "button", 8 },
 	};
+
+	flashing = {
+		{ "key", "f" },
+		{ "button", 3 },
+	};
 }
 
 function Input:new()
