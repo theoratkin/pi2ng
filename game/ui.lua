@@ -14,6 +14,12 @@ local palette = "PICO-8 palette"
 
 local noFlashing = "Flashing Off"
 
+local right = "Right - Rotate clockwise"
+local left = "Left - Rotate counterclockwise"
+local mute = "M - Mute music"
+local flash = "F - Disable flashing"
+local escape = "Escape - Title screen / Quit"
+
 
 function UI:new()
 	self:resize(love.graphics.getDimensions())
@@ -33,7 +39,7 @@ end
 
 function UI:update(dt)
 	local tol = 20
-	if  (self.state == "credits" or self.state == "win") and
+	if  (self:istitle() or self.state == "win") and
 		math.abs(racket1.angle - self.restartAngle) < math.rad(tol)
 	then
 		self.state = "game"
@@ -41,16 +47,18 @@ function UI:update(dt)
 		ball:start()
 	end
 
-	if  racket1.angle < math.rad(tol) or
-		racket1.angle > math.pi * 2 - math.rad(tol)
+	if not self:istitle() then
+		return
+	end
+
+	if  racket1.angle < math.rad(tol / 2) or
+		racket1.angle > math.pi * 2 - math.rad(tol / 2)
 	then
-		if self.state == "credits" then
-			self.state = "title"
-		end
+		self.state = "controls"
+	elseif math.abs(racket1.angle - math.rad(340)) < math.rad(10) then
+		self.state = "credits"
 	else
-		if self.state == "title" then
-			self.state = "credits"
-		end
+		self.state = "title"
 	end
 end
 
@@ -85,9 +93,17 @@ function UI:radialEntry(angle, length, width, text)
 end
 
 
+function UI:istitle()
+	return
+		self.state == "title" or
+		self.state == "credits" or
+		self.state == "controls"
+end
+
+
 function UI:draw()
 	love.graphics.setColor(self.foregroundColor)
-	if self.state == "title" or self.state == "credits" then
+	if self:istitle() then
 		love.graphics.setFont(self.fontLarge)
 		self:_print(
 			title,
@@ -104,7 +120,7 @@ function UI:draw()
 		)
 		love.graphics.setFont(self.font)
 
-		self:radialEntry(0, 20, 5, "Title")
+		self:radialEntry(math.rad(0), 20, 5, "Controls")
 		self:radialEntry(math.rad(340), 20, 2, "Credits")
 		self:radialEntry(math.pi, 20, 2, "Play")
 	end
@@ -114,13 +130,6 @@ function UI:draw()
 	end
 
 	if self.state == "title" then
-		local offset = 60
-		self:_print(
-			press2Play,
-			self:_alignCenter(press2Play, 1),
-			self._center.y + offset + self.font:getHeight() * 2,
-			1
-		)
 	end
 
 	if self.state == "credits" then
@@ -153,6 +162,46 @@ function UI:draw()
 			palette,
 			self:_alignCenter(palette, 1),
 			self._center.y + offset + self.font:getHeight() * 5,
+			1
+		)
+	end
+
+	if self.state == "controls" then
+		local offset = 90
+		self:_print(
+			press2Play,
+			self:_alignCenter(press2Play, 1),
+			self._center.y - offset - self.font:getHeight() * 1 - 30,
+			1
+		)
+		self:_print(
+			right,
+			self:_alignCenter(right, 1),
+			self._center.y + offset + self.font:getHeight() * 1,
+			1
+		)
+		self:_print(
+			left,
+			self:_alignCenter(left, 1),
+			self._center.y + offset + self.font:getHeight() * 2,
+			1
+		)
+		self:_print(
+			mute,
+			self:_alignCenter(mute, 1),
+			self._center.y + offset + self.font:getHeight() * 4,
+			1
+		)
+		self:_print(
+			flash,
+			self:_alignCenter(flash, 1),
+			self._center.y + offset + self.font:getHeight() * 5,
+			1
+		)
+		self:_print(
+			escape,
+			self:_alignCenter(escape, 1),
+			self._center.y + offset + self.font:getHeight() * 6,
 			1
 		)
 	end
