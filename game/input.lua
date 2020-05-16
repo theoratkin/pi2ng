@@ -35,6 +35,7 @@ DEFAULT_MAPPINGS = {
 
 	back = {
 		{ "key", "escape" },
+		{ "key", "q" },
 		{ "key", "backspace" },
 		{ "button", 2 },
 		{ "button", 7 },
