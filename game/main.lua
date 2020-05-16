@@ -110,7 +110,7 @@ function love.update(dt)
 		flashing = not flashing
 	end
 	if input:down("back") then
-		if ui.state == "title" or ui.state == "credits" then
+		if ui:istitle() then
 			love.event.quit()
 		else
 			ui.restartAngle = math.pi
