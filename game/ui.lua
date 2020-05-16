@@ -12,6 +12,8 @@ local musicAuthor = 'Music "sad Waltz" by frankum'
 local sounds = "Sound effects by caiogracco, unfa and V-ktor"
 local palette = "PICO-8 palette"
 
+local noFlashing = "Flashing Off"
+
 
 function UI:new()
 	self:resize(love.graphics.getDimensions())
@@ -163,6 +165,17 @@ function UI:draw()
 			self._center.y - self.font:getHeight() / 2,
 			1
 		)
+
+		if not flashing then
+			love.graphics.setFont(self.fontSmall)
+			self:_print(
+				noFlashing,
+				self:_alignCenter(noFlashing, 1),
+				self._center.y + self.font:getHeight() / 2 * 2,
+				1
+			)
+			love.graphics.setFont(self.font)
+		end
 	end
 
 	if self.debug then

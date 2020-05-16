@@ -121,7 +121,7 @@ function Ball:ping()
 
 	self.currentRacket.flash = 1
 	self.currentRacket.flashColor = {0, 0, 0}
-	if self.speedPerc >= 60 then
+	if flashing and self.speedPerc >= 60 then
 		color = math.random(2, #COLORS)
 		self.currentRacket.flashColor = COLORS[color]
 	end
