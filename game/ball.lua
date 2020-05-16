@@ -4,7 +4,7 @@ local Ball = Object:extend()
 local SIZE = 10
 local MIN_SPEED = 100
 local MAX_SPEED = 400
-local SPEED_STEP = 20
+local SPEED_STEP = 2
 local ANGLE_LIMIT = 45
 
 
