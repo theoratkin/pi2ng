@@ -17,6 +17,8 @@ counterclockwise.
 
 \<M\> - mute music.
 
+\<F\> - disable flashing.
+
 \<Escape\> or \<Q\> - exit the game at any time. Keep in mind that your
 progress won't be saved!
 

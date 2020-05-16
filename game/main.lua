@@ -52,6 +52,7 @@ function love.load()
 	racket2.opposite = racket1
 	ball = Ball(ui)
 	debug = false
+	flashing = true
 
 	music = love.audio.newSource("res/music.ogg", "stream")
 	music:setLooping(true)
@@ -98,6 +99,9 @@ function love.keypressed(key, scancode, isrepeat)
 		else
 			music:play()
 		end
+	end
+	if scancode == "f" then
+		flashing = not flashing
 	end
 	if scancode == "f1" then
 		ui.debug = not ui.debug
