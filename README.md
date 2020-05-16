@@ -1,5 +1,7 @@
 # PI2NG
 
+![banner](media/banner.png)
+
 Supercharge the crystal and see what happens! Be careful, it's very unstable!
 You have to contain it, otherwise it will get destroyed.
 
