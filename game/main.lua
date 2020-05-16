@@ -119,8 +119,8 @@ function love.update(dt)
 			ball:reset()
 			racket1.flash = 0
 			racket2.flash = 0
-			racket1.angle = 0
-			racket2.angle = math.pi
+			racket1.angle = math.rad(50)
+			racket2.angle = math.pi + math.rad(50)
 			finalanim:reset()
 		end
 	end
