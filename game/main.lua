@@ -77,7 +77,7 @@ end
 
 
 function genstars()
-   local max_stars = 1000
+   local max_stars = math.sqrt(size.x * size.y)
  
    stars = {}
  
