@@ -77,7 +77,7 @@ end
 
 
 function genstars()
-   local max_stars = 100
+   local max_stars = 1000
  
    stars = {}
  
