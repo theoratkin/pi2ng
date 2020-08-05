@@ -47,13 +47,6 @@ function Racket:update(dt)
 		self.angle = self.angle + math.pi * 2
 	end
 
-	self.vertices = { 
-		self.center.x + math.cos(self.angle - math.rad(self.length)) * RADIUS,
-		self.center.y + math.sin(self.angle - math.rad(self.length)) * RADIUS,
-		self.center.x + math.cos(self.angle + math.rad(self.length)) * RADIUS,
-		self.center.y + math.sin(self.angle + math.rad(self.length)) * RADIUS
-	}
-
 	self.flash = self.flash - dt * 2
 	if self.flash < 0 then
 		self.flash = 0
