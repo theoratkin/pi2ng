@@ -48,8 +48,23 @@ DEFAULT_MAPPINGS = {
 	};
 }
 
+function Input:isValidJoystick(device)
+	if device:getAxisCount() == 1 then
+		return true
+	end
+end
+
 function Input:new()
-	self.joystick = love.joystick.getJoysticks()[1]
+	self.joystick = nil
+	if love.joystick then
+		local joysticks = love.joystick.getJoysticks()
+		for _, joystick in ipairs(joysticks) do
+			if not self:isValidJoystick(joystick) then
+				self.joystick = joystick
+				break
+			end
+		end
+	end
 	self.mappings = DEFAULT_MAPPINGS
 	self.axis = {}
 	self.buttons = {}
@@ -85,13 +100,25 @@ end
 
 
 function Input:update(dt)
-	if self.joystick ~= nil then
+	-- Reset joystick state
+	self.axis = {}
+	self.buttons = {}
+	
+	-- Only process joystick input if we have a valid, connected joystick
+	if self.joystick and self.joystick:isConnected() then
 		for i = 1, self.joystick:getAxisCount() do
-			self.axis[i] = self.joystick:getAxis(i)
-			if math.abs(self.axis[i]) < JOYSTICK_DEADZONE then
-				self.axis[i] = 0
+			local raw_value = self.joystick:getAxis(i)
+			-- Ensure the value is within valid range
+			if raw_value < -1 or raw_value > 1 then
+				raw_value = 0
 			end
+			-- Apply deadzone
+			if math.abs(raw_value) < JOYSTICK_DEADZONE then
+				raw_value = 0
+			end
+			self.axis[i] = raw_value
 		end
+		
 		for i = 1, self.joystick:getButtonCount() do
 			self.buttons[i] = self.joystick:isDown(i)
 		end
@@ -116,7 +143,7 @@ end
 function Input:queryValue(name)
 	local mapping = self.mappings[name]
 	for i, binding in pairs(mapping) do
-		if  binding[1] == "key" and
+		if binding[1] == "key" and
 			love.keyboard.isScancodeDown(binding[2])
 		then
 			return binding[3] or 1
@@ -139,18 +166,28 @@ function Input:queryValue(name)
 			end
 		end
 	end
-
 	return 0
 end
 
 
 function Input:joystickadded(joystick)
-	self.joystick = joystick
+	if not self.joystick and not self:isValidJoystick(joystick) then
+		self.joystick = joystick
+	end
 end
 
 
 function Input:joystickremoved(joystick)
-	self.joystick = love.joystick.getJoysticks()[1]
+	if self.joystick == joystick then
+		local joysticks = love.joystick.getJoysticks()
+		self.joystick = nil
+		for _, j in ipairs(joysticks) do
+			if not self:isValidJoystick(j) then
+				self.joystick = j
+				break
+			end
+		end
+	end
 end
 
 
